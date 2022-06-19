@@ -1,0 +1,2 @@
+check if there is internet connection
+first classify if the plant is a rose flower.

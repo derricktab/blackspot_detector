@@ -37,6 +37,10 @@ dependencies:
   animated_text_kit: ^4.2.1
   font_awesome_flutter: ^10.1.0
   image_picker: ^0.8.5+3
+  http: ^0.13.4
+  dio: ^4.0.6
+  flutter_spinkit: ^5.1.0
+  connectivity_plus: ^2.3.0
 
 dev_dependencies:
   flutter_test:
@@ -76,10 +80,10 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
+  fonts:
+    - family: TESLA
+      fonts:
+        - asset: fonts/TESLA.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro

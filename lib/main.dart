@@ -1,5 +1,7 @@
+import 'package:blackspot_detector/info.dart';
+import 'package:blackspot_detector/internet.dart';
 import 'package:flutter/material.dart';
-
+import 'results.dart';
 import 'homepage.dart';
 
 void main(List<String> args) {
@@ -14,11 +16,20 @@ class MainApp extends StatefulWidget {
 }
 
 class _MainAppState extends State<MainApp> {
+  var imagePath;
+
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: BlackSpotDetector(),
+      routes: {
+        'results': (context) => Results(
+              imageurl: imagePath,
+            ),
+        'info': (context) => const Info(),
+        'home': (context) => const BlackSpotDetector(),
+      },
     );
   }
 }

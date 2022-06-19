@@ -1,3 +1,4 @@
+import 'package:blackspot_detector/results.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
@@ -31,7 +32,7 @@ class _BlackSpotDetectorState extends State<BlackSpotDetector> {
           children: [
             // PICKING IMAGE FROM CAMERA
             ListTile(
-              title: const Text("Pick From Camera"),
+              title: const Text("Take Image With Camera"),
               leading: const Icon(
                 FontAwesomeIcons.camera,
                 color: Colors.green,
@@ -39,14 +40,17 @@ class _BlackSpotDetectorState extends State<BlackSpotDetector> {
               onTap: () async {
                 final XFile? image =
                     await _picker.pickImage(source: ImageSource.camera);
-                // printing the image path
-                print(image!.path);
-                setState(() {
-                  pickedImagePath = image.path;
-                  imagePicked = true;
-                });
+
+                var imgPath = image!.path;
+
+                // await _prefs.setBool("imagePicked", true);
 
                 Navigator.pop(context);
+
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => Results(imageurl: imgPath)));
               },
             ),
 
@@ -61,12 +65,14 @@ class _BlackSpotDetectorState extends State<BlackSpotDetector> {
                 final XFile? image =
                     await _picker.pickImage(source: ImageSource.gallery);
                 // printing the image path
-                print(image!.path);
-                setState(() {
-                  pickedImagePath = image.path;
-                  imagePicked = true;
-                });
+
+                var imgPath = image!.path;
+
                 Navigator.pop(context);
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => Results(imageurl: imgPath)));
               },
             ),
           ],
@@ -99,7 +105,7 @@ class _BlackSpotDetectorState extends State<BlackSpotDetector> {
         // APPBAR
         appBar: AppBar(
           backgroundColor: Color.fromARGB(255, 226, 255, 225),
-          title: const Text("BLACKSPOT DETECTOR"),
+          title: const Text("BLACK SPOT DETECTOR"),
           foregroundColor: Colors.black,
         ),
 
@@ -109,12 +115,34 @@ class _BlackSpotDetectorState extends State<BlackSpotDetector> {
         // BODY
         body: ListView(
           children: [
+            // SOME SPACING AT THE TOP
+            const SizedBox(
+              height: 45,
+            ),
+
+            // IMAGE OF ROSE WITH BLACK SPOT DISEASE
             Container(
               padding: const EdgeInsets.all(20),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(500),
               ),
-              child: Image.asset("images/1st.jpg"),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(20),
+                child: Image.asset("images/1st.jpg"),
+              ),
+            ),
+
+            // ANOTHER SIZED BOX
+            const SizedBox(height: 30),
+
+            // TEXT FOR THE USER OF THE APP
+            Container(
+              padding: const EdgeInsets.all(20),
+              child: const Text(
+                "To check if your rose plants are affected by black spot disease,  Please click the icon below.",
+                style: TextStyle(fontSize: 22),
+                textAlign: TextAlign.center,
+              ),
             ),
           ],
         ));
